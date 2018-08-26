@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div>
+		<ul>
+			<li v-for="tarea in tareas">
+				{{ tarea }}
+			</li>
+		</ul>
+		<form v-on:submit.prevent="agregarTarea">
+			<input type="text" placeholder="Introduce tarea" v-model="nuevaTarea">
+			<input type="submit" value="Enviar Tarea">
+		</form>
+		<pre>{{ $data }}</pre>
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

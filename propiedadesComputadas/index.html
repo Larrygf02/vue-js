@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>Vue Js</title>
+</head>
+<body>
+	<div class="main" id="main">
+		<input type="text" v-model="palabra" placeholder="Ingrese una palabra">
+		<p>Palabra: {{ palabra }}</p>
+		<p>Reverso: {{ reversoPalabra }}</p>
+		<input type="search" v-model="busqueda" placeholder="Buscar juego">
+		<ul>
+			<li v-for="juego in buscarJuego">
+				{{ juego.titulo }}
+			</li>
+		</ul>
+		<input type="range" min="0" max="10" v-model="minimo"> 
+		<pre>
+			{{ $data }}
+		</pre>
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
