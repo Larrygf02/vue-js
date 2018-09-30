@@ -1,8 +1,12 @@
 <template>
   <section>
     <h1>Rutas con vue Router</h1>
-    <router-link to="/">Home</router-link>
-    <router-link to="/contacto">Contacto</router-link>  
+    <router-link to="/" exact tag="li">
+      <a>Home</a>
+    </router-link>
+    <router-link to="/contacto" exact tag="li">
+      <a>Contacto</a>
+    </router-link>  
     <hr>
     <router-view></router-view>
   </section>
@@ -13,4 +17,12 @@ export default {
   
 }
 </script>
+
+
+<style>
+  .router-link-active a{
+    color: red;
+  }
+</style>
+
 
