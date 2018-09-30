@@ -6,7 +6,10 @@
     </router-link>
     <router-link to="/contacto" exact tag="li">
       <a>Contacto</a>
-    </router-link>  
+    </router-link> 
+    <router-link to="/usuario/77" exact tag="li">
+      <a>Usuario</a>
+    </router-link>
     <hr>
     <router-view></router-view>
   </section>
