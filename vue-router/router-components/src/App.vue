@@ -10,6 +10,9 @@
     <router-link to="/usuario/77" exact tag="li">
       <a>Usuario</a>
     </router-link>
+    <router-link to="/usuario/99" exact tag="li">
+      <a>Usuario</a>
+    </router-link>
     <hr>
     <router-view></router-view>
   </section>
