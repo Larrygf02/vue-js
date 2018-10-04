@@ -5,6 +5,7 @@ import UsuarioFotos from './components/UsuarioFotos.vue'
 import UsuarioBio from './components/UsuarioBio.vue'
 import Contacto from './components/Contacto.vue'
 import NoEncontrado from './components/NoEncontrado.vue'
+import {store} from './store'
 
 export const routes = [
     {path: '/', component: Home},
@@ -20,6 +21,11 @@ export const routes = [
             fotos: UsuarioFotos,
         }, name:'equipo'},
     ]},
-    {path: '/contacto', component: Contacto, name: 'contacto', props: {newsletter: true}},
+    {
+        beforeEnter: ((to, from, next)=> {
+            console.log('Acceso a ruta');
+            next(store.state.auth)
+        }),
+        path: '/contacto', component: Contacto, name: 'contacto', props: {newsletter: true}},
     {path: '*', component: NoEncontrado},
 ];

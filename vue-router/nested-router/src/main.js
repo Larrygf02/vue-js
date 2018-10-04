@@ -12,8 +12,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log('Acceso a la ruta');
-  next(store.state.auth);
+  console.log('Acceso global a la ruta');
+  next();
 });
 
 new Vue({
