@@ -3,6 +3,8 @@ import Home from './components/Home.vue'
 import Usuario from './components/Usuario.vue'
 import UsuarioFotos from './components/UsuarioFotos.vue'
 import UsuarioBio from './components/UsuarioBio.vue'
+import Contacto from './components/Contacto.vue'
+import NoEncontrado from './components/NoEncontrado.vue'
 
 export const routes = [
     {path: '/', component: Home},
@@ -18,4 +20,6 @@ export const routes = [
             fotos: UsuarioFotos,
         }, name:'equipo'},
     ]},
+    {path: '/contacto', component: Contacto, name: 'contacto', props: {newsletter: true}},
+    {path: '*', component: NoEncontrado},
 ];
