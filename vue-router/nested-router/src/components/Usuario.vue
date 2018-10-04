@@ -10,3 +10,19 @@
         <router-view></router-view> -->
     </section>
 </template>
+<script>
+export default {
+    beforeRouteEnter: ((to,from, next) => {
+        console.info('Antes de entrar');
+        next((vm) => console.log(vm));
+    }),
+    beforeRouteUpdate: ((to, from, next) => {
+        console.info('Antes de cambiar sobre el mismo componente');
+        next();
+    }),
+    beforeRouteLeave: ((to, from, next) => {
+        console.info('Antes de salir');
+        next();
+    }),
+}
+</script>
