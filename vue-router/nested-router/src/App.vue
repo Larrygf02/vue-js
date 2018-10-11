@@ -2,7 +2,9 @@
   <section>
     <button @click="cambiar">Cambiar auth</button>
     <hr>
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
   </section>
   
 </template>
@@ -13,4 +15,11 @@ export default {
     methods: mapMutations(['cambiar'])
 }
 </script>
+<style>
+  .aparecer-enter{
+    opacity:0,
+  }
+  
+</style>
+
 
