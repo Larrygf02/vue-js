@@ -8,10 +8,29 @@
 <!--         <router-link :to="{ name:'fotos', params: { id:$route.params.id } }">Fotos</router-link>
         <router-link :to="{ name:'bio', params: { id:$route.params.id } }">Bio</router-link>
         <router-view></router-view> -->
+        <pre v-text="username"></pre>
     </section>
 </template>
 <script>
 export default {
+    data(){
+        return {
+            username: null,
+        }
+    },
+    created() {
+        this.getUser();
+    },
+    watch:{
+        '$route': 'getUser',
+    },
+    methods:{
+        getUser(){
+            setTimeout(() => {
+                this.username = this.$route.params.id + Math.floor(Math.random()* 1000);
+            }, 2000);
+        }
+    },
     beforeRouteEnter: ((to,from, next) => {
         console.info('Antes de entrar');
         next((vm) => console.log(vm));

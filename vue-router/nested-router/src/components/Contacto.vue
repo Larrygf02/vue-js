@@ -9,6 +9,7 @@
         <template v-if="newsletter">
             <form action="">
                 <h3>News Letter</h3>
+                <pre>Identificador : {{ numero }}</pre>
                 <label for="correo">Correo</label>
                 <input type="email" placeholder="Tu correo" id="correo">
             </form>
@@ -17,7 +18,21 @@
 </template>
 <script>
 export default {
-    props: ['newsletter']
+    props: ['newsletter'],
+    data() {
+        return {
+            numero: null,
+        }
+    },
+    beforeRouteEnter: ((to, from, next) => {
+        console.info('Antes de entrar')
+        setTimeout(() => {
+            next((vm) => {
+                vm.numero = Math.floor(Math.random() * 1000);
+                console.log(vm.numero);
+            })
+        }, 2000)
+    })
 }
 </script>
 
