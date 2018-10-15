@@ -1,6 +1,6 @@
 Vue.directive('fijar', {
     bind(el, binding){
-        console.log(el, binding)
+        /* console.log(el, binding)
         el.style.position = 'fixed';
         if (binding.expression){
             el.style.top = binding.expression + 'px';
@@ -12,7 +12,7 @@ Vue.directive('fijar', {
                 color = modificadores[0]
             }
             el.style.backgroundColor = color;
-        }
+        } */
     }
 })
 new Vue({
