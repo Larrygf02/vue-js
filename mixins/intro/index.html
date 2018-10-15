@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="app">
+            <ul v-for="curso in cursos">
+                <li>{{ curso.nombre }}</li>
+            </ul>
+            <input type="text" v-model="new_curso">
+            <button @click="add_curso">Agregar</button>
+        </div>
+        <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    cursos: [
+                        {nombre: 'Mongo BD'},
+                        {nombre: 'Node'},
+                        {nombre: 'Machine Learning'},
+                        {nombre: 'Deep Learning'},
+                    ],
+                    new_curso: null,
+                },
+                methods: {
+                    add_curso: function() {
+                        this.cursos.unshift({
+                            nombre: this.new_curso,
+                        });
+                        this.new_curso = null
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
