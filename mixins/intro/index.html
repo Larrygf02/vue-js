@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="container">
         <div class="collection">
             <a v-for="curso in cursos" class="collection-item">{{ curso.nombre }}</a>
         </div>
@@ -24,27 +24,25 @@
             </div>
         </div>
         <a class="waves-effect waves-light btn-small" @click="add_curso">Agregar</a>
+        <hr /> 
+        <strong>Si hay dos metodos con el mismo nombre en el mixin y en el componente, el metodo del componente
+            tiene la prioridad
+        </strong>
+        <hr>
+        <a class="waves-effect waves-light btn-small" @click="saludar">Saludar</a>
     </div>
     <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/mixins.js"></script>
     <script>
         var app = new Vue({
             el: '#app',
-            data: {
-                cursos: [
-                    { nombre: 'Mongo BD' },
-                    { nombre: 'Node' },
-                    { nombre: 'Machine Learning' },
-                    { nombre: 'Deep Learning' },
-                ],
-                new_curso: null,
+            mixins: [mixin],
+            created() {
+                console.log('Creado desde el componente')
             },
             methods: {
-                add_curso: function () {
-                    this.cursos.unshift({
-                        nombre: this.new_curso,
-                    });
-                    this.new_curso = null
+                saludar() {
+                    console.log('Saludar desde el componente')
                 }
             }
         })
