@@ -13,26 +13,34 @@
 </head>
 
 <body>
-    <div class="container">
-        <form id="formulario">
+    <div class="container" id="app">
+        <form id="formulario" @submit.prevent="enviarMensaje">
             <div class="form-group">
                 <label for="mensaje">Mensaje:</label>
-                <textarea class="form-control" id="mensaje" rows="5"></textarea>
+                <textarea class="form-control" id="mensaje" rows="5" v-model="formulario.mensaje"></textarea>
             </div>
             <button class="btn btn-info" type="submit" value="enviar mensaje" >Enviar mensaje</button>
         </form>
+        <hr>
+        <h3>Mensajes</h3>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="mensaje in mensajes">
+                <span contenteditable="true" @blur="editarMensaje(mensaje, mensaje.key)">{{ mensaje.mensaje }}</span>
+            </li>
+        </ul>
     </div>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
     <script>
         // Initialize Firebase
         //Your config here
         var config = {
-            apiKey: "<API_KEY>",
-            authDomain: "<PROJECT_ID>.firebaseapp.com",
-            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-            projectId: "<PROJECT_ID>",
-            storageBucket: "<BUCKET>.appspot.com",
-            messagingSenderId: "<SENDER_ID>",
+            apiKey: "AIzaSyAMe6ghR_vg3Y5FmTtj5y6u0AV3rAs_zWY",
+            authDomain: "curso-vue-firebase-8f768.firebaseapp.com",
+            databaseURL: "https://curso-vue-firebase-8f768.firebaseio.com",
+            projectId: "curso-vue-firebase-8f768",
+            storageBucket: "curso-vue-firebase-8f768.appspot.com",
+            messagingSenderId: "925936434195"
         };
         firebase.initializeApp(config);
         //Guardar una referencia a la BD
@@ -45,6 +53,8 @@
             ciudad: 'Lima',
             pais: 'Peru'
         })*/
+
+        /* whit javascript pure
         document.getElementById('formulario').onsubmit = function(event) {
             event.preventDefault();
             //Captura el mensaje
@@ -57,7 +67,49 @@
                 mensaje.value = '';   
             })
 
-        }
+        }*/
+        //with vue.js
+        var firebaseApp = new Vue({
+            el: '#app',
+            created (){
+                //snapshot es una captura de lo que hay en ese momento
+                // se ejecuta cada vez que hay un cambio
+                db.ref('/chats')
+                    .on('value', snapshot => this.cargarMensajes(snapshot.val()))
+            },
+            data: {
+                formulario: {
+                    mensaje: null,
+                    username: 'kbaldeon'
+                },
+                mensajes: [],
+            },
+            methods: {
+                cargarMensajes(mensajes) {
+                    this.mensajes = [];
+                    console.log(mensajes)
+                    for (let key in mensajes){
+                        this.mensajes.push({
+                            mensaje: mensajes[key].mensaje,
+                            username: mensajes[key].username,
+                            key:key,
+                        });
+                    }
+                },
+                enviarMensaje() {
+                    db.ref('/chats').push({
+                        mensaje: this.formulario.mensaje,
+                        username: this.formulario.username
+                    })
+                    .then(() => {
+                        this.formulario.mensaje = '';
+                    })
+                },
+                editarMensaje(mensaje, key){
+                    console.log(mensaje, key)
+                }
+            }
+        })
     </script>
 </body>
 
