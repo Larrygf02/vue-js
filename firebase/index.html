@@ -6,10 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Firebase</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script> -->
+    <div class="container">
+        <form id="formulario">
+            <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea class="form-control" id="mensaje" rows="5"></textarea>
+            </div>
+            <button class="btn btn-info" type="submit" value="enviar mensaje" >Enviar mensaje</button>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
     <script>
         // Initialize Firebase
         //Your config here
@@ -24,12 +37,27 @@
         firebase.initializeApp(config);
         //Guardar una referencia a la BD
         var db = firebase.database()
-        db.ref('/perfiles/raul').set({
+        //method set solo es recomendable si se tiene un solo registro
+        // el metodo set sobreescribe.
+        /*db.ref('/perfiles/raul').set({
             username: 'rlarriega',
             password: '123',
             ciudad: 'Lima',
             pais: 'Peru'
-        })
+        })*/
+        document.getElementById('formulario').onsubmit = function(event) {
+            event.preventDefault();
+            //Captura el mensaje
+            let mensaje = document.getElementById('mensaje');
+            db.ref('chats').push({
+                username: 'raul',
+                mensaje: mensaje.value
+            }).then(() => {
+                console.info('Mensaje enviado');
+                mensaje.value = '';   
+            })
+
+        }
     </script>
 </body>
 
