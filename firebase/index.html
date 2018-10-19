@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Firebase</title>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script> -->
+    <script>
+        // Initialize Firebase
+        //Your config here
+        var config = {
+            apiKey: "<API_KEY>",
+            authDomain: "<PROJECT_ID>.firebaseapp.com",
+            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+            projectId: "<PROJECT_ID>",
+            storageBucket: "<BUCKET>.appspot.com",
+            messagingSenderId: "<SENDER_ID>",
+        };
+        firebase.initializeApp(config);
+        //Guardar una referencia a la BD
+        var db = firebase.database()
+        db.ref('/perfiles/raul').set({
+            username: 'rlarriega',
+            password: '123',
+            ciudad: 'Lima',
+            pais: 'Peru'
+        })
+    </script>
+</body>
+
+</html>
