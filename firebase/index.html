@@ -25,7 +25,8 @@
         <h3>Mensajes</h3>
         <ul class="list-group">
             <li class="list-group-item" v-for="mensaje in mensajes">
-                <span contenteditable="true" @blur="editarMensaje(mensaje, mensaje.key)">{{ mensaje.mensaje }}</span>
+                <span contenteditable="true" @blur="editarMensaje($event, mensaje.key)">{{ mensaje.mensaje }}</span>
+                <button class="btn btn-danger" @click="eliminarMensaje(mensaje.key)"> X </button>
             </li>
         </ul>
     </div>
@@ -106,7 +107,14 @@
                     })
                 },
                 editarMensaje(mensaje, key){
-                    console.log(mensaje, key)
+                    db.ref('/chats/'+ key).update({
+                        mensaje: mensaje.target.innerHTML
+                    });
+                },
+                eliminarMensaje(key){
+                    if(confirm('Seguro?')){
+                        db.ref('/chats/'+ key).remove()
+                    }
                 }
             }
         })
