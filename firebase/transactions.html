@@ -69,9 +69,22 @@
                 agregarLike(user){
                     like = user.likes + 1;
                     //console.log(like);
-                    db.ref('/perfiles/'+ user.key).update({
+                    db.ref('/perfiles/'+ user.key+ '/likes')
+                    /*.update({
                         'likes': like,
-                    })
+                    })*/
+                        .transaction(function(likes){
+                            return likes + 1;   
+                        }, function(error, commited, snapshot){
+                            if(error){
+                                console.log(error)
+                            } else if (!commited){
+                                console.warn('transaccion no realizada')
+                            } else{
+                                console.info('Transaccion realizada')
+                                console.log(snapshot.val())
+                            } 
+                        })
                     .then(() => {
                         user.likes = like;
                     })
