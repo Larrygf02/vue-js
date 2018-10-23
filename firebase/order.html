@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Firebase</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <button class="btn btn-info" @click="ordenarPorKeySecundaria('color')">Por color</button>
+        <button class="btn btn-info" @click="ordenarPorKeySecundaria('edad')">Por edad</button>
+        <button class="btn btn-info" @click="ordenarPorKey">Por key del nodo</button>
+        <button class="btn btn-info" @click="ordenarPorValor">Por valor</button>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+    <script>
+        // Initialize Firebase
+        //Your config here
+        var config = {
+            apiKey: "<API_KEY>",
+            authDomain: "<PROJECT_ID>.firebaseapp.com",
+            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+            projectId: "<PROJECT_ID>",
+            storageBucket: "<BUCKET>.appspot.com",
+            messagingSenderId: "<SENDER_ID>",
+        };
+        firebase.initializeApp(config);
+        //Guardar una referencia a la BD
+        var db = firebase.database()
+        const gatosRef = db.ref('gatos')
+        // Datos iniciales
+        const gatos = [
+            {nombre: 'kira', edad: 5, color: 'Marron'},
+            {nombre: 'Mailow', edad: 10, color: 'Blanco y negro'}
+        ]
+        var firebaseApp = new Vue({
+            el: '#app',
+            created (){
+                gatos.forEach(gato => {
+                    gatosRef.child(gato.nombre).set({
+                        edad: gato.edad || null,
+                        color: gato.color
+                    });
+                });
+            },
+            data: {
+                gatos: gatosRef,
+            },
+            methods: {
+                ordenarPorKeySecundaria(key){
+                    this.gatos.orderByChild(key).on('child_added', snapshot => {
+                        console.log(snapshot.key, snapshot.val())
+                    })
+                },
+                ordenarPorKey(){
+                    this.gatos.orderByKey().on('child_added', snapshot => {
+                        console.log(snapshot.key, snapshot.val())
+                    })
+                },
+                ordenarPorValor(){
+                    this.gatos.orderByValue().on('child_added', snapshot => {
+                        console.log(snapshot.key, snapshot.val())
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
