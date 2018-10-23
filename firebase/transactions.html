@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Firebase</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container" id="app">
+        
+        <h3>Datos Usuario</h3>
+        <template v-for="user in users">
+            <p><strong>Usuario :</strong> {{ user.username }}</p>
+            <p><strong>Pais:</strong> {{ user.pais }}</p>
+            <p><strong>Ciudad:</strong> {{ user.ciudad }}</p>
+            <p><strong>Likes:</strong> {{ user.likes }}</p>
+            <button class="btn btn-info btn-xs" @click="agregarLike(user)">Añadir Like</button>
+        </template>
+        
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+    <script>
+        // Initialize Firebase
+        //Your config here
+        var config = {
+            apiKey: "AIzaSyAMe6ghR_vg3Y5FmTtj5y6u0AV3rAs_zWY",
+            authDomain: "curso-vue-firebase-8f768.firebaseapp.com",
+            databaseURL: "https://curso-vue-firebase-8f768.firebaseio.com",
+            projectId: "curso-vue-firebase-8f768",
+            storageBucket: "curso-vue-firebase-8f768.appspot.com",
+            messagingSenderId: "925936434195"
+        };
+        firebase.initializeApp(config);
+        //Guardar una referencia a la BD
+        var db = firebase.database()
+        //with vue.js
+        var firebaseApp = new Vue({
+            el: '#app',
+            created (){
+                //snapshot es una captura de lo que hay en ese momento
+                // se ejecuta cada vez que hay un cambio
+                db.ref('/perfiles')
+                    .on('value', snapshot => this.cargarUsuario(snapshot.val()))
+            },
+            data: {
+                users: [],
+            },
+            methods: {
+                cargarUsuario(users){
+                    this.users = [];
+                    for (let key in users){
+                        this.users.push({
+                            username: users[key].username,
+                            pais: users[key].pais,
+                            ciudad: users[key].ciudad,
+                            likes: users[key].likes,
+                            key: key
+                        })
+                    }
+                },
+                agregarLike(user){
+                    like = user.likes + 1;
+                    //console.log(like);
+                    db.ref('/perfiles/'+ user.key).update({
+                        'likes': like,
+                    })
+                    .then(() => {
+                        user.likes = like;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
