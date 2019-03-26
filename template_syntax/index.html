@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+    </head>
+    <body>
+        <main>
+            <span v-once>Esto nunca va a cambiar {{ mensaje }}</span>
+            <p>Esto si cambiara: {{ mensaje }}</p>
+            <input v-model="mensaje">
+        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
