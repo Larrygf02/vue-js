@@ -2,14 +2,36 @@
     <head>
         <meta charset="utf-8">
         <title>Vue.js</title>
+        <style>
+            a {
+                text-decoration: none;
+                display: block;
+                margin-top: 1rem;
+            }
+            a.btn {
+                background-color: #4fc08d;
+                border-radius: 2em;
+            }
+            .btn {
+                color: #fff;
+                text-align: center;
+                padding: 12px 24px;
+                width: 114px;
+                font-size: 0.9em;
+            }
+        </style>
     </head>
+
     <body>
         <main>
             <span v-once>Esto nunca va a cambiar {{ mensaje }}</span>
             <p>Esto si cambiara: {{ mensaje }}</p>
             <input v-model="mensaje">
+            <!-- Usando una expresion dentro de una directiva -->
+            <!-- El nombre attributename debe estar en minúscula-->
+            <a class="btn" v-bind:[attributename]="url" target="_blank">Dinamic arguments</a>
         </main>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <script src="main.js"></script>
     </body>
 </html>
