@@ -6,6 +6,11 @@ Vue.prototype.name = 'My name'
 
 Vue.prototype.$http = axios
 
+Vue.prototype.$uppercase = function(name) {
+    this[name] = this[name].toUpperCase();
+    //return this[name]
+}
+
 var instance = new Vue({
     data: {
         name: 'Other name'
@@ -19,6 +24,8 @@ var instance = new Vue({
 var otherInstance = new Vue({
     beforeCreate: function() {
         console.log(`${this.$appName} desde otra instancia`);
+        //console.log(this.$uppercase('name'))
+        console.log(this.name);
     }
 })
 
