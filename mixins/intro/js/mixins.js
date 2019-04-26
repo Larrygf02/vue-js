@@ -22,6 +22,15 @@ var mixin = {
             }
             this.new_curso = null
         },
+        remove_curso: function(curso) {
+            console.log(curso);
+            index = this.cursos.findIndex(c=> {
+                console.log(c.nombre);
+                return c.nombre == curso.nombre;
+            })
+            console.log(index);
+            this.cursos.splice(index,1);
+        },
         saludar() {
             console.log('Saludar desde el mixin')
         }
