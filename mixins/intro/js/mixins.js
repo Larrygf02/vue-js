@@ -15,9 +15,11 @@ var mixin = {
     },
     methods: {
         add_curso: function () {
-            this.cursos.unshift({
-                nombre: this.new_curso,
-            });
+            if (this.new_curso != null && this.new_curso != '') {
+                this.cursos.unshift({
+                    nombre: this.new_curso,
+                });
+            }
             this.new_curso = null
         },
         saludar() {
