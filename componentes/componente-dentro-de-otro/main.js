@@ -21,6 +21,7 @@ new Vue({
             'Comprender el ciclo de vida de VUE',
             'Aprender Flutter',
             'Limpiar la casa :v',
+            'Aprender node'
         ]
     }
 });
